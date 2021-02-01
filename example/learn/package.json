@@ -1,10 +1,16 @@
 {
   "scripts": {
-    "build": "truffle compile && typechain --target truffle './build/**/*.json' && tsc",
-    "postinstall": "patch-package"
+    "build": "make build",
+    "build-sol": "rm -rf build/contracts/* && truffle compile",
+    "build-ts-type": "typechain --target truffle './build/**/*.json'",
+    "build-ts-migration": "tsc",
+    "test": "yarn build && truffle test",
+    "postinstall": "patch-package",
+    "flatten": "truffle-flattener contracts/Index.sol > contracts/IndexFull.sol"
   },
   "dependencies": {
-    "@pefish/js-node-assist": "^2.0.8"
+    "@pefish/js-node-assist": "^2.0.8",
+    "@pefish/solidity-lib": "^0.0.3"
   },
   "devDependencies": {
     "@truffle/hdwallet-provider": "^1.1.0",
@@ -14,6 +20,8 @@
     "@types/node": "^14.11.2",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
+    "truffle": "^5.1.63",
+    "truffle-flattener": "^1.5.0",
     "truffle-typings": "^1.0.8",
     "ts-generator": "^0.0.8",
     "ts-node": "^9.0.0",
